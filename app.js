@@ -33,3 +33,5 @@ app.use((error, _, res, __) => {
 app.listen(port, () => {
   console.log("server is up and listening on port ", port);
 });
+
+module.exports = app
