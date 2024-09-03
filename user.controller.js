@@ -6,9 +6,14 @@ exports.register = async (req, res, next) => {
   try {
     const { email, phone, password, name } = req.body;
 
-    const userExists = await User.findOne({ email: email });
+    if (phone.length < 10)
+      throwError("Minimum of 10 digits for phone number required", 400);
 
-    if (userExists) throwError("An account with that email exists", 409);
+    const userExists = await User.findOne({
+      $or: [{ email: email }, { phone: phone }],
+    });
+
+    if (userExists) throwError("Email or Phone number exists", 409);
 
     //   encrypt password
     const hashedPassword = hashPassword(password);
@@ -50,5 +55,19 @@ exports.login = async (req, res, next) => {
     res.status(200).json({ userId: user._id.toString(), user, token });
   } catch (err) {
     next(err);
+  }
+};
+
+exports.getUser = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const user = await User.findById(id);
+
+    if (!user) throwError("User not found!", 404);
+
+    res.status(200).json(user);
+  } catch (err) {
+    next(next);
   }
 };

@@ -19,7 +19,7 @@ app
   .use(express.json());
 
 app.use("/api/user", userRoutes);
-app.use("/api/parcel", parcelRoutes);
+app.use("/api/parcels", parcelRoutes);
 
 // error middleware
 app.use((error, _, res, __) => {
@@ -31,7 +31,7 @@ app.use((error, _, res, __) => {
 });
 
 app.listen(port, () => {
-  console.log("server is up and listening on port ", port);
+  console.log("server is up and listening on port", port);
 });
 
 module.exports = app
