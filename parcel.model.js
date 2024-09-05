@@ -6,7 +6,7 @@ const parcelSchema = new Schema({
   senderPhone: { type: String, required: true },
   receiverName: { type: String, required: true },
   receiverPhone: { type: String, required: true },
-  receiverId: { type: Number, required: true },
+  receiverId: { type: Number, required: false },
   value: { type: Number, required: true },
   description: { type: String, required: true },
   pickup: { type: String, required: true },
